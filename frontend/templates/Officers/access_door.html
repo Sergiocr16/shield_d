@@ -1,0 +1,357 @@
+<head>
+    <link href="../../assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css" />
+</head>
+
+<div id="headerAccess" class="col-md-12 page-header md-shadow-z-1-i navbar navbar-fixed-top">
+    <div class="col-md-9 col-sm-9 col-xs-7 page-header-inner">
+        <div class="page-logo">
+            <a href="index.html">
+                <img src="../../assets/admin/layout/img/logo.png" alt="logo" class="logo-default" />
+            </a>
+        </div>
+    </div>
+    <div class="col-md-3  col-sm-3  col-xs-5 ">
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown dropdown-extended " id="header_notification_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="icon-bell"></i>
+                        <span class="badge badge-default">	7 </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3><span class="bold">12 pending</span> notifications</h3>
+                            <a href="extra_profile.html">view all</a>
+                        </li>
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="time">5 days</span>
+                                        <span class="details"><span class="label label-sm label-icon label-info"><i class="fa fa-bullhorn"></i>	</span> System Error. </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="time">9 days</span>
+                                        <span class="details">	<span class="label label-sm label-icon label-danger"><i class="fa fa-bolt"></i>	</span> Storage server failed. </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="icon-user " style="color: #607D8B; margin-top:3px; font-size:18px"></i>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu ">
+                        <li>
+                            <a href="" ng-click="signOut()">
+                                <i class="icon-key"></i> Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="access-back ">
+    <div class="opacity col-lg-12 col-md-12 col-sm-12">
+
+        <form ng-submit="submitAccess(accessForm)" role="form" ng-init="accessForm = {}" name="access">
+
+        </form>
+        <div class="height-6-percent col-md-12 hidden-xs"></div>
+
+        <div class="access-container col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-12 ">
+            <div ng-hide="hideRegisterForm==1" class="col-md-6 col-sm-6 no-padding " id="access-door-container">
+                <div class="portlet light bordered access-search-container col-md-12  col-sm-12 col-xs-12 ">
+                    <h1 id="access_tittle" class="page-title small-margin-top text-center col-md-12"> Puerta de acceso </h1>
+                    <div class="height-5-percent col-md-12 hidden-xs"></div>
+
+                    <div class="form-group no-padding col-md-offset-2  col-md-8 col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon ">
+                                  <i class="fa fa-user"></i>
+                                  </span>
+                            <input type="text" class="form-control height-12-percent font-20 input_id" ng-change="getResident()" ng-model="id_number" placeholder="Cédula">
+                        </div>
+                    </div>
+
+                    <div class="height-12-percent col-md-12 col-sm-12 hidden-xs"></div>
+                    <div class="form-group no-padding col-md-offset-2 col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-addon ">
+                                <i class="fa fa-car"></i>
+                                </span>
+                            <input type="text" class="form-control height-12-percent font-20 input_id " ng-change="getVehicule()" ng-model="id_vehicule" placeholder="Número de placa">
+                        </div>
+                    </div>
+
+                    <div class="height-6-percent col-md-12 col-sm-12 hidden-xs "></div>
+                    <button type="submit" class="btn blue font-15 col-md-offset-2 col-md-8  col-sm-12 col-xs-12 btn-access-door" ng-click="show=5" name="button">Registrar visitante</button>
+
+                </div>
+
+                <button type="submit" class="btn green font-15 col-md-12 col-sm-12 col-xs-12 btn-access-door" ng-click="getOfficials()" name="buton">Registrar cambio de turno</button>
+
+            </div>
+            <div ng-hide="hideRegisterForm==1" class="access-result-search-container col-md-6 col-sm-6 col-xs-12 ">
+
+                <div class="portlet light bordered access-information-result-container col-md-12 col-sm-12">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12" ng-show="show==3">
+
+                        <div id="error-image" class="result-image"></div>
+
+                        <div class="height-5-percent col-md-12 col-sm-12 hidden-xs "></div>
+                        <p class="red text-center font-30 col-md-12  col-sm-12  col-xs-12">No se encontran datos registrados</p>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12" ng-show="show==2">
+                        <div class="loading col-lg-12 col-md-12 col-sm-12 col-xs-12" id="loadingIcon">
+                            <h1 class="text-center"><img src="../../assets/global/img/2.gif" alt="" /></h1>
+                        </div>
+                        <div class="display-none " id="vehiculeAccess">
+                            <h1 class="page-title green-font bold text-center font-30 " id="access_tittle">Vehículo registrado</h1>
+                            <div class="col-md-12 col-sm-12 ">
+                                <div id="success-car-image" class="result-image "></div>
+
+                            </div>
+                            <!-- <div class="height-7-percent col-md-6 col-sm-12 hidden-xs "></div> -->
+                            <div class="access_car_information gray-font text-center col-md-4 col-sm-12 col-xs-12 no-padding">
+                                <h5 class="bold font-30">{{license_plate}}</h5>
+                                <h5 class="font-20">Placa</h5>
+                            </div>
+
+                            <div class="col-md-4 col-sm-12 col-xs-12 no-padding marging-top-20">
+                                <h1 class="col-mg-12 text-center "><i class=" text-center fa fa-car font-80 " style="color: {{color}}; " aria-hidden="true "></i> </h1>
+                            </div>
+                            <div class="col-md-4 col-sm-12 no-padding text-center ">
+                                <span class="gray-font font-20 col-md-16 col-sm-12 col-xs-12 no-padding">
+                                  <h5 class="bold font-30">{{SelectedBrand}}</h5>
+                                  <h5 class=" font-20">Marca</h5>
+                                </span>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="access_car_information gray-font text-center col-md-4 col-sm-12 col-xs-12 no-padding">
+                                    <h3 class="bold font-35" id="house_number_span">{{SelectedHouse}}</h3>
+                                    <h5 class=" font-20">Casa</h5>
+                                </div>
+                                <div class="height-7-percent col-md-6 col-sm-12 hidden-xs text-center">
+                                </div>
+                                <button type="submit" class="btn red font-11 col-md-offset-2 col-md-6 col-sm-12 col-xs-12 btn-access-door " ng-click="getKeys()" name="buton ">Ver claves de seguridad</button>
+                                <!-- <div class="col-md-8 col-sm-12 col-xs-12">
+                                    <h3 ng-show="keyShow==1" class="  font-17" id="house_number_span">Clave de seguridad <span class="bold gray-font">madick</span></h3>
+                                    <h3 ng-show="keyShow==1" class=" font-17" id="house_number_span">Clave de emergencia <span class="bold gray-font">12323</span></h3>
+                                    <button type="submit" class="btn red font-11 col-md-offset-2 col-md-6 col-sm-12 col-xs-12 btn-access-door " ng-show="keyShow==1" ng-click="keyShow=2f" name="buton">Ocultar</button>
+                                </div> -->
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 " ng-show="show==1 ">
+                        <div class="loading col-lg-12 col-md-12 col-sm-12 col-xs-12" id="loadingIcon">
+                            <h1 class="text-center"><img src="../../assets/global/img/2.gif" alt="" /></h1>
+                        </div>
+                        <div class="display-none" id="residentAccess">
+
+                            <h1 class="page-title green-font bold text-center font-30 " id="access_tittle ">Residente registrado</h1>
+                            <div class="" id="success-resident-image">
+                                <img src="http://www.qtem.org/files/attach/images/contact/5438/BVP%20profile%20sq%202.jpg " id="success-resident-image" class="img-rounded" />
+                            </div>
+                            <div class="height-5-percent col-md-12 col-sm-12 hidden-xs "></div>
+                            <span class=" gray-font font-20 access_car_information col-md-12 col-sm-12 no-padding ">Nombre: {{name}}</span>
+                            <span class=" gray-font font-20 access_car_information col-md-8 col-sm-12 no-padding ">Cédula:<span class="font-35 bold "> {{indentification}}</span></span>
+                            <span class="font-20 gray-font col-md-4 no-padding ">Casa: <span class="font-35 bold ">{{house_number}}</span></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 " ng-show="show==5 ">
+                        <div class="portlet-title gray-font">
+                            <div class="caption text-center font-19">
+                                Registrar visitante
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form role="form" ng-submit="insertVisitor()">
+                                <div class="form-body">
+                                    <div class="form-group col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                        <i class="fa fa-indent"></i>
+                                        </span>
+                                            <input type="text" ng-change="getVisitor()" ng-model="visitor_id_number" class="form-control font-15" id="identification_number" placeholder="Cédula">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                    											<i class="fa fa-user"></i>
+                    											</span>
+                                            <input type="text" id="name" ng-model="visitor_name" class="form-control font-15" placeholder="Nombre">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                          <i class="fa fa-user"></i>
+                                          </span>
+                                            <input type="text" ng-model="visitor_last_name" class="form-control font-15" id="last_name" placeholder="Primer apellido">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                          <i class="fa fa-user"></i>
+                                          </span>
+                                            <input type="text" ng-model="visitor_second_last_name" class="form-control font-15" id="second_last_name" placeholder="Segundo apellido">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                          <i class="fa fa-car"></i>
+                                          </span>
+                                            <input type="text" ng-model="visitor_license_plate" class="form-control font-15" id="license_plate" placeholder="Número de placa (opcional)">
+                                        </div>
+                                    </div>
+                                    <div class="form-group  col-md-12 no-padding">
+                                        <label class="col-md-4 col-sm-3 col-xs-5 gray-font">Número de casa</label>
+                                        <div class="form-group col-md-8 col-sm-9 col-xs-7">
+                                            <select class="form-control" data-ng-model="house" ng-options="house.house_number for house in houses | orderBy: 'house_number' track by house.id" required>
+                                              <option value="">Seleccione una casa</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group  col-md-12 ">
+                                        <h3 class="text-right">
+                                        <button type="submit" class="btn blue">Registrar</button>
+                                        <button type="button" class="btn default">Cancelar</button>
+                                      </h3>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- <div class="height-5-percent col-md-12 col-sm-12 hidden-xs "></div> -->
+            <div class="row" ng-show="show==7" ng-hide="hideEmergencyForm==1">
+                <div class="col-md-12 " id="emergencyContainer">
+                    <h1 class="text-center white-color font-60">Emergencia</h1>
+                    <form role="form" ng-submit="attendEmergency()">
+                        <h3 class="text-center">
+                          <button type="submit" class="btn blue white-color default col-md-offset-4 col-md-4 font-15 height-12-percent">Atender emergencia</button>
+                      </h3>
+                    </form>
+                </div>
+            </div>
+            <div class="row" ng-show="show==6">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption font-green-haze">
+                                <i class="fa fa-car font-green-haze"></i>
+                                <span class="caption-subject bold uppercase">Reportar cambio de turno</span>
+                            </div>
+                            <div class="actions">
+                                <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form role=" form " ng-submit="actionButton() ">
+                                <div class="form-body ">
+                                    <p class="gray-font font-15">
+                                        Para seleccionar los oficiales de este turno, de click sobre la fila del oficial que desee elegir.
+                                    </p>
+                                    <div class="col-md-6">
+                                        <div class="portlet box red">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-cogs"></i>Oficiales
+                                                </div>
+
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="table-scrollable">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Nombre</th>
+                                                                <th>Cédula</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Mark Otto Ramirez</td>
+                                                                <td>11847184</td>
+                                                            </tr>
+
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="portlet box red ">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-cogs"></i>Oficiales seleccionados
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="table-scrollable">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Nombre</th>
+                                                                <th>Cédula</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Mark Otto Ramirez</td>
+                                                                <td>11847184</td>
+                                                            </tr>
+
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-actions noborder ">
+                                        <h3 class="text-right ">
+                                          <button type="submit " class="btn blue "><i class="fa fa-pencil "></i> Reportar turno</button>
+                                          <button type="button " ng-ckick="show=4 "  class="btn default gray-font ">Cancelar</button>
+                                        </h3>
+                                    </div>
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
